@@ -23,6 +23,7 @@ using BlazorHero.CleanArchitecture.Shared.Constants.Application;
 using BlazorHero.CleanArchitecture.Shared.Constants.Localization;
 using BlazorHero.CleanArchitecture.Shared.Constants.Permission;
 using BlazorHero.CleanArchitecture.Shared.Wrapper;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -35,8 +36,11 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
 using Newtonsoft.Json;
+
 using Serilog;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -64,7 +68,7 @@ namespace BlazorHero.CleanArchitecture.Server.Extensions
         internal static IServiceCollection AddForwarding(this IServiceCollection services, IConfiguration configuration)
         {
             var applicationSettingsConfiguration = configuration.GetSection(nameof(AppConfiguration));
-            var config = applicationSettingsConfiguration.Get<AppConfiguration>(); 
+            var config = applicationSettingsConfiguration.Get<AppConfiguration>();
             if (config.BehindSSLProxy)
             {
                 services.Configure<ForwardedHeadersOptions>(options =>
@@ -93,7 +97,7 @@ namespace BlazorHero.CleanArchitecture.Server.Extensions
                         });
                 });
             }
-            
+
             return services;
         }
 
@@ -246,7 +250,7 @@ namespace BlazorHero.CleanArchitecture.Server.Extensions
         {
             services.AddTransient<IDateTimeService, SystemDateTimeService>();
             services.Configure<MailConfiguration>(configuration.GetSection("MailConfiguration"));
-            services.AddTransient<IMailService, SMTPMailService>();
+            services.AddTransient<IMailService, SmtpMailService>();
             return services;
         }
 

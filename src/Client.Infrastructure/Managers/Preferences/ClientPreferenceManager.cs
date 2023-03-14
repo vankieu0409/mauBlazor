@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using Blazored.LocalStorage;
+﻿using Blazored.LocalStorage;
+
 using BlazorHero.CleanArchitecture.Client.Infrastructure.Settings;
-using MudBlazor;
-using System.Threading.Tasks;
 using BlazorHero.CleanArchitecture.Shared.Constants.Storage;
 using BlazorHero.CleanArchitecture.Shared.Settings;
 using BlazorHero.CleanArchitecture.Shared.Wrapper;
+
 using Microsoft.Extensions.Localization;
+
+using MudBlazor;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlazorHero.CleanArchitecture.Client.Infrastructure.Managers.Preferences
 {

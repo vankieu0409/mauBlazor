@@ -1,21 +1,23 @@
 ﻿using BlazorHero.CleanArchitecture.Application.Configurations;
 using BlazorHero.CleanArchitecture.Application.Interfaces.Services;
 using BlazorHero.CleanArchitecture.Application.Requests.Mail;
-using MailKit.Net.Smtp;
-using MailKit.Security;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using MimeKit;
+
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace BlazorHero.CleanArchitecture.Infrastructure.Shared.Services
 {
-    public class SMTPMailService : IMailService
+    public class SmtpMailService : IMailService
     {
         private readonly MailConfiguration _config;
-        private readonly ILogger<SMTPMailService> _logger;
+        private readonly ILogger<SmtpMailService> _logger;
 
-        public SMTPMailService(IOptions<MailConfiguration> config, ILogger<SMTPMailService> logger)
+        public SmtpMailService(IOptions<MailConfiguration> config, ILogger<SmtpMailService> logger)
         {
             _config = config.Value;
             _logger = logger;
@@ -36,10 +38,10 @@ namespace BlazorHero.CleanArchitecture.Infrastructure.Shared.Services
                 };
                 email.To.Add(MailboxAddress.Parse(request.To));
                 using var smtp = new SmtpClient();
-                await smtp.ConnectAsync(_config.Host, _config.Port, SecureSocketOptions.StartTls);
-                await smtp.AuthenticateAsync(_config.UserName, _config.Password);
+                //await smtp.ConnectAsync(_config.Host, _config.Port, SecureSocketOptions.StartTls);
+                //await smtp.AuthenticateAsync(_config.UserName, _config.Password);
                 await smtp.SendAsync(email);
-                await smtp.DisconnectAsync(true);
+                // await smtp.DisconnectAsync(true);
             }
             catch (System.Exception ex)
             {
